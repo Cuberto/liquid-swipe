@@ -1,0 +1,5 @@
+use_frameworks!
+
+target 'liquid-swipe_Example' do
+  pod 'liquid-swipe', :path => '../'
+end

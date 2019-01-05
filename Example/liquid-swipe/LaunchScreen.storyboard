@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CAO-Vm-95f">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="Hho-Eh-CYj">
+            <objects>
+                <viewController id="CAO-Vm-95f" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ntI-92-0Pr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cuberto-logo" translatesAutoresizingMaskIntoConstraints="NO" id="zmm-V0-KYP">
+                                <rect key="frame" x="30" y="319.5" width="315" height="28"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.30196078430000001" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="zmm-V0-KYP" firstAttribute="centerY" secondItem="ntI-92-0Pr" secondAttribute="centerY" id="DRo-pg-X3N"/>
+                            <constraint firstItem="zmm-V0-KYP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="h4y-vl-K3y" secondAttribute="leading" constant="15" id="E12-iJ-JOd"/>
+                            <constraint firstItem="h4y-vl-K3y" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zmm-V0-KYP" secondAttribute="trailing" constant="15" id="Lab-Kz-qj2"/>
+                            <constraint firstItem="zmm-V0-KYP" firstAttribute="centerX" secondItem="ntI-92-0Pr" secondAttribute="centerX" id="bFD-k0-ieO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="h4y-vl-K3y"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UuY-6f-a2Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="206" y="254"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="cuberto-logo" width="315" height="28"/>
+    </resources>
+</document>
