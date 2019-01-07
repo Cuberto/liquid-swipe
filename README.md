@@ -9,6 +9,8 @@ Cuberto is a leading digital agency with solid design and development expertise.
 [![Swift 4.2](https://img.shields.io/badge/Swift-4.2-green.svg?style=flat)](https://developer.apple.com/swift/)
 
 
+![Animation](https://raw.githubusercontent.com/Cuberto/liquid-swipe/master/Screenshots/animation.gif)
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
