@@ -51,7 +51,12 @@ open class LiquidSwipeContainerController: UIViewController {
     private var maxVertRadius: CGFloat {
         return view.bounds.height * 0.9
     }
-    private var initialSideWidth: CGFloat = 15.0
+    private var initialSideWidth: CGFloat {
+        if #available(iOS 11.0, *) {
+            return 15.0 + view.safeAreaInsets.right
+        }
+        return 15.0
+    }
     private var initialWaveCenter: CGFloat  {
         return view.bounds.height * 0.7167487685
     }
@@ -206,6 +211,10 @@ open class LiquidSwipeContainerController: UIViewController {
                         self.delegate?.liquidSwipeContainer(self, didFinishTransitionTo: viewController, transitionCompleted: false)
                 }
             }
+            if let mask = nextViewController?.view?.layer.mask as? WaveLayer {
+                mask.frame = self.view.bounds
+                mask.updatePath()
+            }
             currentPage?.pop_add(animation, forKey: "animation")
         }
     }
@@ -282,8 +291,13 @@ open class LiquidSwipeContainerController: UIViewController {
                 }
                 if self.shouldCancel,
                     let viewController = self.previousViewController {
+                    viewController.view.isHidden = true
                     self.delegate?.liquidSwipeContainer(self, didFinishTransitionTo: viewController, transitionCompleted: false)
                 }
+            }
+            if let mask = previousViewController?.view?.layer.mask as? WaveLayer {
+                mask.frame = self.view.bounds
+                mask.updatePath()
             }
             previousViewController?.view.pop_add(previousViewAnimation, forKey: "animation")
             guard nextViewController != nil else {
@@ -496,6 +510,10 @@ open class LiquidSwipeContainerController: UIViewController {
         guard let page = nextVC.view else {
             return
         }
+        if let mask = page.layer.mask as? WaveLayer {
+            mask.frame = view.bounds
+            mask.updatePath()
+        }
         if let currentPage = currentPage {
             view.insertSubview(page, belowSubview: currentPage)
         } else {
@@ -519,6 +537,10 @@ open class LiquidSwipeContainerController: UIViewController {
         guard let page = previousVC.view else {
             return
         }
+        if let mask = page.layer.mask as? WaveLayer {
+            mask.frame = view.bounds
+            mask.updatePath()
+        }
         if let currentPage = currentPage {
             view.insertSubview(page, aboveSubview: currentPage)
         } else {
@@ -529,7 +551,7 @@ open class LiquidSwipeContainerController: UIViewController {
     }
     
     private func apply(mask: WaveLayer, on view: UIView) {
-        mask.frame = view.bounds
+        mask.frame = self.view.bounds
         mask.updatePath()
         view.layer.mask = mask
     }
@@ -559,6 +581,51 @@ open class LiquidSwipeContainerController: UIViewController {
             self.showNextPage()
         }
         currentPage?.pop_add(animation, forKey: "animation")
+    }
+    
+    override open func viewSafeAreaInsetsDidChange() {
+        if let mask = self.currentPage?.layer.mask as? WaveLayer {
+            if mask.sideWidth > 0 {
+                mask.sideWidth = initialSideWidth
+                mask.updatePath()
+                csBtnNextLeading?.constant = -(mask.waveHorRadius + mask.sideWidth - 8.0)
+                view.layoutIfNeeded()
+            }
+        }
+        
+    }
+    
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        let btnNextWasHidden = btnNext.isHidden
+        btnNext.isHidden = true
+        currentPage?.layer.mask = nil
+        previousViewController?.view?.layer.mask = nil
+        nextViewController?.view?.layer.mask = nil
+        
+        coordinator.animate(alongsideTransition: { (_) in
+        }) { (_) in
+            if let currentPage = self.currentPage {
+                let hasNextPage = self.nextViewController != nil
+                let maskLayer = WaveLayer(waveCenterY: self.initialWaveCenter,
+                                          waveHorRadius: hasNextPage ? self.initialHorRadius : 0,
+                                          waveVertRadius: self.initialVertRadius, sideWidth: hasNextPage ?self.initialSideWidth : 0)
+                self.apply(mask: maskLayer, on: currentPage)
+            }
+            if let nextPage = self.nextViewController?.view {
+                let maskLayer = WaveLayer(waveCenterY: self.initialWaveCenter, waveHorRadius: 0, waveVertRadius: self.initialVertRadius, sideWidth: 0)
+                self.apply(mask: maskLayer, on: nextPage)
+            }
+            if let prevPage = self.previousViewController?.view {
+                let maskLayer = WaveLayer(waveCenterY: self.initialWaveCenter, waveHorRadius: 0, waveVertRadius: self.initialVertRadius, sideWidth: prevPage.bounds.height)
+                self.apply(mask: maskLayer, on: prevPage)
+            }
+            self.csBtnNextCenterY?.constant = self.initialWaveCenter
+            self.csBtnNextLeading?.constant = -(self.initialHorRadius + self.initialSideWidth - 8.0)
+            self.btnNext.isHidden = btnNextWasHidden
+            self.btnNext.transform = CGAffineTransform.identity
+            self.view.layoutIfNeeded()
+        }
+        super.viewWillTransition(to: size, with: coordinator)
     }
 }
 

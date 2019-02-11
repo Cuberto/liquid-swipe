@@ -13,6 +13,22 @@ internal class WaveLayer: CAShapeLayer {
     var waveHorRadius: CGFloat
     var waveVertRadius: CGFloat
     var sideWidth: CGFloat
+    
+    override public init(layer: Any) {
+        if let waveLayer = layer as? WaveLayer {
+            waveCenterY = waveLayer.waveCenterY
+            waveHorRadius = waveLayer.waveHorRadius
+            waveVertRadius = waveLayer.waveVertRadius
+            sideWidth = waveLayer.sideWidth
+        } else {
+            waveCenterY = 0
+            waveHorRadius = 0
+            waveVertRadius = 0
+            sideWidth = 0
+        }
+        super.init(layer: layer)
+    }
+    
     init(waveCenterY: CGFloat, waveHorRadius: CGFloat, waveVertRadius: CGFloat, sideWidth: CGFloat) {
         self.waveCenterY = waveCenterY
         self.waveHorRadius = waveHorRadius
