@@ -34,7 +34,7 @@ open class LiquidSwipeContainerController: UIViewController {
     private var currentViewController: UIViewController?
     private var nextViewController: UIViewController?
     private var previousViewController: UIViewController?
-    private var btnNext: UIButton = {
+    public var btnNext: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .clear
