@@ -5,7 +5,7 @@ Cuberto is a leading digital agency with solid design and development expertise.
 # liquid-swipe
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/Cuberto/liquid-swipe/master/LICENSE)
-[![CocoaPods](https://img.shields.io/cocoapods/v/CBFlashyTabBarController.svg)](http://cocoapods.org/pods/liquid-swiper)
+[![CocoaPods](https://img.shields.io/cocoapods/v/liquid-swipe.svg)](http://cocoapods.org/pods/liquid-swipe)
 [![Swift 4.2](https://img.shields.io/badge/Swift-4.2-green.svg?style=flat)](https://developer.apple.com/swift/)
 
 
