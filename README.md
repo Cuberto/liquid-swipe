@@ -36,6 +36,10 @@ Instantiate `LiquidSwipeContainerController` from storyboard or from code and se
 The data source for a  controller is responsible for providing the content view controllers on demand and must conform to the `LiquidSwipeContainerDataSource`
 Container delegate can be used for monitoring conent changes
 
+## Android
+
+Similar library [LiquidSwipe](https://github.com/Cuberto/liquid-swipe-android) by [Cuberto](https://github.com/Cuberto)
+
 ## Author
 
 Cuberto Design, info@cuberto.com
